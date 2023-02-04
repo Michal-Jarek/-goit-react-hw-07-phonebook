@@ -1,18 +1,18 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/contactsSlice';
-import { getContacts } from 'redux/selectors';
+import { addContact } from 'redux/operations';
+import { selectContacts } from 'redux/selectors';
 
 import scss from './SignForm.module.scss';
 
 const INITIAL_STATE = {
   name: '',
-  number: '',
+  phone: '',
 };
 
 const SignForm = () => {
   const [contact, handleContact] = useState({ ...INITIAL_STATE });
-  const contactArray = useSelector(getContacts);
+  const contactArray = useSelector(selectContacts);
   const dispatch = useDispatch();
 
   const handleSubmit = e => {
@@ -26,12 +26,7 @@ const SignForm = () => {
       reset();
       return;
     }
-    dispatch(
-      addContact({
-        name,
-        number,
-      })
-    );
+    dispatch(addContact({ name, phone }));
     console.log(`Signed up as: ${name}`);
     reset();
   };
@@ -49,7 +44,7 @@ const SignForm = () => {
 
   // ************ End Methods *****************
 
-  const { name, number } = contact;
+  const { name, phone } = contact;
 
   return (
     <form className={scss.form} onSubmit={handleSubmit}>
@@ -71,11 +66,11 @@ const SignForm = () => {
         <input
           className={scss.input}
           type="tel"
-          name="number"
+          name="phone"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           onChange={handleChange}
-          value={number}
+          value={phone}
           required
         />
       </label>
