@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setFilter } from 'redux/contactsSlice';
 import { selectFilter } from 'redux/selectors';
 
+
 import scss from './Filter.module.scss';
 
 const Filter = () => {
@@ -10,6 +11,7 @@ const Filter = () => {
   const handleChange = e => {
     dispatch(setFilter(e.target.value));
   };
+  
 
   return (
     <label className={scss.label}>
